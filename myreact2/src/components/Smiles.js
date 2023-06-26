@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Smiles() {
 	const [countsCool, setCountsCool] = useState(0);
@@ -6,6 +6,7 @@ export default function Smiles() {
 	const [countsAngry, setCountsAngry] = useState(0);
 	const [countsLol, setCountsLol] = useState(0);
 	const [countsSmile, setCountsSmile] = useState(0);
+	const [max, setMax] = useState()
 
 	function onCoolBtnClick() {
 		let counts = countsCool + 1;
@@ -29,12 +30,43 @@ export default function Smiles() {
 	}
 
 	function onShowResults() {
-		let results = [countsCool,	countsShock,countsAngry,countsLol,countsSmile];
-		console.log(results);
+		let smilesList = [
+			{
+				name: 'cool',
+				text: "😎",
+				'counts': countsCool,
+			},
+			{
+				name: 'shock',
+				text: "😱",
+				'counts': countsShock,
+			},
+			{
+				name: 'angry',
+				text: "😡",
+				'counts': countsAngry,
+			},
+			{
+				name: 'lol',
+				text: "😂",
+				'counts': countsLol,
+			},
+			{
+				name: 'smile',
+				text: "😊",
+				'counts': countsSmile,
+			},
+		]
+
+		const result = smilesList.reduce((acc, smile) => acc.counts > smile.counts ? acc : smile)
+		
+		setMax(result)
 	}
 
 	return (
 		<div className="container">
+			<div className="buttonFlex">
+
 			<div className="buttonContainer">
 				<button onClick={onCoolBtnClick}>😎</button>
 				<h2>{countsCool}</h2>
@@ -55,8 +87,13 @@ export default function Smiles() {
 				<button onClick={onSmileBtnClick}>😊</button>
 				<h2>{countsSmile}</h2>
 			</div>
+			</div>
 
 			<button onClick={onShowResults}>Show results</button>
+
+			<h2> Winner {max?.text} </h2> 
+			<p>Counts: {max?.counts}</p>
+
 		</div>
 	);
 }
