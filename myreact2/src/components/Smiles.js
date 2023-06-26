@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 
+// Компонент ButtonContainer
+function ButtonContainer({ onClick, emoji, count }) {
+	return (
+		<div className="buttonContainer">
+			<button onClick={onClick}>{emoji}</button>
+			<h2>{count}</h2>
+		</div>
+	);
+}
+
 export default function Smiles() {
 	const [countsCool, setCountsCool] = useState(0);
 	const [countsShock, setCountsShock] = useState(0);
 	const [countsAngry, setCountsAngry] = useState(0);
 	const [countsLol, setCountsLol] = useState(0);
 	const [countsSmile, setCountsSmile] = useState(0);
-	const [max, setMax] = useState()
+	const [max, setMax] = useState();
 
 	function onCoolBtnClick() {
 		let counts = countsCool + 1;
@@ -32,68 +42,69 @@ export default function Smiles() {
 	function onShowResults() {
 		let smilesList = [
 			{
-				name: 'cool',
+				name: "cool",
 				text: "😎",
-				'counts': countsCool,
+				counts: countsCool,
 			},
 			{
-				name: 'shock',
+				name: "shock",
 				text: "😱",
-				'counts': countsShock,
+				counts: countsShock,
 			},
 			{
-				name: 'angry',
+				name: "angry",
 				text: "😡",
-				'counts': countsAngry,
+				counts: countsAngry,
 			},
 			{
-				name: 'lol',
+				name: "lol",
 				text: "😂",
-				'counts': countsLol,
+				counts: countsLol,
 			},
 			{
-				name: 'smile',
+				name: "smile",
 				text: "😊",
-				'counts': countsSmile,
+				counts: countsSmile,
 			},
-		]
+		];
 
-		const result = smilesList.reduce((acc, smile) => acc.counts > smile.counts ? acc : smile)
-		
-		setMax(result)
+		const result = smilesList.reduce((acc, smile) =>
+			acc.counts > smile.counts ? acc : smile
+		);
+
+		setMax(result);
 	}
 
 	return (
 		<div className="container">
 			<div className="buttonFlex">
-
-			<div className="buttonContainer">
-				<button onClick={onCoolBtnClick}>😎</button>
-				<h2>{countsCool}</h2>
-			</div>
-			<div className="buttonContainer">
-				<button onClick={onShockBtnClick}>😱</button>
-				<h2>{countsShock}</h2>
-			</div>
-			<div className="buttonContainer">
-				<button onClick={onAngryBtnClick}>😡</button>
-				<h2>{countsAngry}</h2>
-			</div>
-			<div className="buttonContainer">
-				<button onClick={onLolBtnClick}>😂</button>
-				<h2>{countsLol}</h2>
-			</div>
-			<div className="buttonContainer">
-				<button onClick={onSmileBtnClick}>😊</button>
-				<h2>{countsSmile}</h2>
-			</div>
+				<ButtonContainer
+					onClick={onCoolBtnClick}
+					emoji="😎"
+					count={countsCool}
+				/>
+				<ButtonContainer
+					onClick={onShockBtnClick}
+					emoji="😱"
+					count={countsShock}
+				/>
+				<ButtonContainer
+					onClick={onAngryBtnClick}
+					emoji="😡"
+					count={countsAngry}
+				/>
+				<ButtonContainer onClick={onLolBtnClick} emoji="😂" count={countsLol} />
+				<ButtonContainer
+					onClick={onSmileBtnClick}
+					emoji="😊"
+					count={countsSmile}
+				/>
 			</div>
 
 			<button onClick={onShowResults}>Show results</button>
 
-			<h2> Winner {max?.text} </h2> 
+			<h2> Winner {max?.text} </h2>
 			<p>Counts: {max?.counts}</p>
-
 		</div>
 	);
 }
