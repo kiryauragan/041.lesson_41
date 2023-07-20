@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.container {
+	text-align: center;
+}
+
+.buttonFlex {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.container button {
+	font-size: 2rem;
+}
